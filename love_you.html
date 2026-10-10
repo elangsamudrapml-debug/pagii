@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I Love You</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: #fbf7f8;
+    overflow: hidden;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Panggung berukuran tetap 540x363, lalu diskalakan lewat JS agar muat di layar */
+  .love {
+    position: relative;
+    width: 540px;
+    height: 363px;
+    flex: none;
+    transform-origin: center center;
+  }
+
+  /* ---------- Hati kecil ---------- */
+  .love .heart {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23d81b45'/%3E%3Cstop offset='1' stop-color='%239e0a2a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M50 90 C8 60 2 30 20 14 C34 2 48 10 50 24 C52 10 66 2 80 14 C98 30 92 60 50 90Z' fill='url(%23g)'/%3E%3Cellipse cx='30' cy='26' rx='9' ry='5' transform='rotate(-30 30 26)' fill='%23ff8fa8' opacity='.55'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    box-sizing: border-box;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  /* ---------- Karakter ---------- */
+  .char {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 540px;
+    height: 363px;
+    overflow: visible;
+  }
+
+  .char .draw {
+    fill: none;
+    stroke: #1d1d1d;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 0.9s ease-in-out forwards;
+  }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .char .pop {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pop 0.45s cubic-bezier(.34, 1.56, .64, 1) forwards;
+  }
+
+  @keyframes pop {
+    from { opacity: 0; transform: scale(.2); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .char .biu {
+    font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+    font-style: italic;
+    font-size: 15px;
+    fill: #1d1d1d;
+    opacity: 0;
+    animation: fadein 0.35s ease forwards;
+    animation-delay: 3.3s;
+  }
+
+  @keyframes fadein { to { opacity: 1; } }
+
+  /* ---------- Teks ---------- */
+  .text {
+    position: absolute;
+    left: 0;
+    width: 540px;
+    top: 252px;
+    text-align: center;
+    font-family: "Times New Roman", Times, "Noto Serif", serif;
+    font-size: 30px;
+    letter-spacing: .5px;
+    color: #f7c6d1;
+    opacity: 0;
+    text-shadow: 0 0 0 rgba(200, 20, 60, 0);
+    animation: text-in 2s ease-in-out forwards;
+    animation-delay: 8.4s;
+  }
+
+  @keyframes text-in {
+    0%   { opacity: 0; color: #f7c6d1; text-shadow: 0 0 0 rgba(200, 20, 60, 0); }
+    35%  { opacity: 1; color: #e8798f; text-shadow: 0 0 10px rgba(235, 90, 120, .45); }
+    100% { opacity: 1; color: #b3123a; text-shadow: 0 0 16px rgba(220, 40, 80, .55); }
+  }
+</style>
+</head>
+<body>
+
+<div class="love" id="love">
+
+  <!-- Karakter doodle (digambar bertahap seperti di video) -->
+  <svg class="char" viewBox="0 0 540 363" xmlns="http://www.w3.org/2000/svg">
+    <!-- kepala -->
+    <path class="draw" pathLength="1" style="animation-delay:.3s"
+          d="M 100 177 A 37 37 0 1 0 100 251 A 37 37 0 1 0 100 177"/>
+    <!-- lengan (menunjuk ke kanan) -->
+    <path class="draw" pathLength="1" style="animation-delay:1s"
+          d="M 117 268 C 130 262 142 250 152 234"/>
+    <path class="draw" pathLength="1" style="animation-delay:1.2s"
+          d="M 122 288 C 136 280 148 266 158 246"/>
+    <!-- tangan bentuk L (tembakan jari) -->
+    <path class="draw" pathLength="1" style="animation-delay:1.5s"
+          d="M 152 234 L 152 219 Q 152 214 157 214 Q 162 214 162 219 L 162 232 L 180 231 Q 186 231 186 236 Q 186 241 180 241 L 160 243 L 158 246"/>
+    <!-- badan -->
+    <path class="draw" pathLength="1" style="animation-delay:1.3s"
+          d="M 78 249 C 70 285 68 322 70 363"/>
+    <path class="draw" pathLength="1" style="animation-delay:1.6s"
+          d="M 124 292 C 128 315 127 340 126 363"/>
+
+    <!-- wajah -->
+    <circle class="pop" cx="88"  cy="211" r="2.8" fill="#1d1d1d" style="animation-delay:2.2s"/>
+    <circle class="pop" cx="112" cy="211" r="2.8" fill="#1d1d1d" style="animation-delay:2.3s"/>
+    <path class="draw" pathLength="1" style="animation-delay:2.4s; animation-duration:.4s; stroke-width:2.2"
+          d="M 95 222 Q 100 228 106 222"/>
+    <!-- pipi -->
+    <ellipse class="pop" cx="77"  cy="224" rx="7" ry="4.2" fill="#f6a9b8" opacity="0" style="animation-delay:2.7s"/>
+    <ellipse class="pop" cx="123" cy="224" rx="7" ry="4.2" fill="#f6a9b8" opacity="0" style="animation-delay:2.8s"/>
+
+    <!-- hati kecil pink di tangan -->
+    <g class="pop" style="animation-delay:3s">
+      <path d="M 190 210 C 182 204 181 196 185 193 C 188 191 190 193 190 195 C 191 193 194 191 197 193 C 201 196 199 204 190 210 Z"
+            fill="#f7a7b8" stroke="#e0788f" stroke-width="1.2"/>
+    </g>
+
+    <!-- tulisan biu -->
+    <text class="biu" x="194" y="229" transform="rotate(-8 194 229)">biu</text>
+  </svg>
+
+  <!-- Hati-hati kecil dibuat lewat JS -->
+  <div id="hearts"></div>
+
+  <!-- Teks akhir -->
+  <div class="text">Morning Tasya</div>
+</div>
+
+<script>
+(function () {
+  var love   = document.getElementById('love');
+  var holder = document.getElementById('hearts');
+
+  /* Skala panggung supaya selalu muat di layar (desktop maupun HP) */
+  function fit() {
+    var s = Math.min(window.innerWidth * 0.96 / 540, window.innerHeight * 0.96 / 363);
+    love.style.transform = 'scale(' + s + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  /* Bentuk hati besar: tiap baris = [kolom awal, kolom akhir] (13 kolom, 0..12) */
+  var rows = [
+    [[2, 4], [8, 10]],
+    [[1, 5], [7, 11]],
+    [[0, 12]],
+    [[0, 12]],
+    [[0, 12]],
+    [[1, 11]],
+    [[2, 10]],
+    [[3, 9]],
+    [[4, 8]],
+    [[5, 7]],
+    [[6, 6]]
+  ];
+
+  var SIZE = 19;          // ukuran satu hati
+  var X0   = 174;         // titik tengah kolom 0
+  var Y0   = 45;          // titik tengah baris 0
+  var FROM = { x: 190, y: 218 };   // hati keluar dari tangan karakter
+
+  var START = 3600;       // ms, kapan hati mulai terbang
+  var items = [];
+
+  rows.forEach(function (segments, r) {
+    segments.forEach(function (seg) {
+      for (var c = seg[0]; c <= seg[1]; c++) {
+        items.push({ r: r, c: c });
+      }
+    });
+  });
+
+  items.forEach(function (it) {
+    var el = document.createElement('div');
+    el.className = 'heart';
+
+    var cx = X0 + it.c * SIZE;
+    var cy = Y0 + it.r * SIZE;
+    el.style.left = (cx - SIZE / 2) + 'px';
+    el.style.top  = (cy - SIZE / 2) + 'px';
+    holder.appendChild(el);
+
+    var dx = FROM.x - cx;
+    var dy = FROM.y - cy;
+
+    /* Hati sisi kanan muncul lebih dulu, lalu mengisi ke kiri (acak sedikit) */
+    var delay = START + (12 - it.c) * 105 + it.r * 38 + Math.random() * 520;
+
+    el.animate([
+      { opacity: 0, transform: 'translate(' + dx + 'px,' + dy + 'px) scale(.15)' },
+      { opacity: 1, transform: 'translate(' + (dx * 0.35) + 'px,' + (dy * 0.35 - 26) + 'px) scale(.8)', offset: .55 },
+      { opacity: 1, transform: 'translate(0,0) scale(1)' }
+    ], {
+      duration: 950,
+      delay: delay,
+      easing: 'cubic-bezier(.22,.8,.3,1)',
+      fill: 'both'
+    });
+  });
+})();
+</script>
+</body>
+</html>
